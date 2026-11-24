@@ -219,4 +219,7 @@ function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,(now-last)/
  if(r!=curRoom){curRoom=r;$('room').textContent=ROOMS[r];btns.forEach(x=>x.b.classList.toggle('on',x.room==r))}
  rend.render(scene,cam)}
 requestAnimationFrame(loop);
+  /* Imágenes precargadas (solo funcionan en la versión web) */
+function aplicar(o,im){const t=new THREE.Texture(im);t.encoding=THREE.sRGBEncoding;t.needsUpdate=true;const p=o.pic,{w,h}=p.userData,r2=im.width/im.height,a=w/h;p.material.map=t;p.material.needsUpdate=true;if(r2>a)p.scale.set(1,a/r2,1);else p.scale.set(r2/a,1,1)}
+if(location.protocol.startsWith('http')){OBRAS.forEach((o,k)=>{const im=new Image();im.onload=()=>aplicar(o,im);im.src='imagenes/'+String(k+1).padStart(2,'0')+'.jpg'})}
 </script></body></html>
