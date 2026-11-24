@@ -71,9 +71,9 @@ const OBRAS=[
  corto:"Ropa usada convertida en imagen. Los artistas cubanos radicados en Miami trabajan con prendas desechadas que conservan la huella de los cuerpos que las vistieron.",
  largo:"Alain Guerra y Neraldo de la Paz, artistas de origen cubano radicados en Miami, trabajan en dupla desde los años noventa con ropa y textiles reciclados. Nine, hacia 2007, pertenece a esa práctica: la prenda descartada, que ya perdió su valor de moda, se reordena hasta formar una imagen. El procedimiento importa tanto como el resultado, porque cada tela conserva color, desgaste y memoria corporal. Desde la sociología, la ropa es el consumo más rápido y visible: Bauman describe la «vida líquida» como un ciclo de comprar, usar y reemplazar sin pausa. Aquí el ciclo se detiene y la prenda recupera una segunda vida simbólica. Para nuestro tema, la obra muestra lo desechable como material con historia: no hay residuo sin cuerpo previo. Su lugar en el Núcleo 1 aclara la tesis: la belleza no se inventa, se rescata de lo que otros dejaron."},
 {titulo:"Gravity and Grace",artista:"El Anatsui",anio:"2010",nucleo:1,individual:false,
- tecnica:"Tapas de botellas de aluminio aplanadas y alambre de cobre ",
+ tecnica:"Tapas de botellas de aluminio aplanadas y alambre de cobre",
  corto:"Miles de tapas de botella unidas con alambre forman un tapiz que brilla como tela ceremonial. El artista ghanés transforma el desecho del alcohol industrial en una arquitectura flexible y monumental.",largo:""},
-{titulo:"Marat (Sebastião)",artista:"Vik Muniz",anio:"2008 ",nucleo:2,individual:false,
+{titulo:"Marat (Sebastião)",artista:"Vik Muniz",anio:"2008",nucleo:2,individual:false,
  tecnica:"Fotografía de una composición hecha con material reciclable, serie Pictures of Garbage",
  corto:"Retrato de un recolector del vertedero de Jardim Gramacho, en Río de Janeiro, compuesto con basura y evocando el Marat de David. La persona que vive del desecho se vuelve figura histórica.",largo:""},
 {titulo:"Touch Sanitation Performance",artista:"Mierle Laderman Ukeles",anio:"1979–1980",nucleo:2,individual:true,
@@ -91,7 +91,7 @@ const OBRAS=[
  tecnica:"Vasos de plástico desechables apilados y adheridos",
  corto:"Miles de vasos desechables forman un paisaje ondulante, casi geológico. La repetición de lo que se usa una vez crea una nueva forma de naturaleza.",largo:""},
 {titulo:"Sandstars",artista:"Gabriel Orozco",anio:"2012",nucleo:3,individual:false,
- tecnica:"Serie con residuos recogidos en la costa ",
+ tecnica:"Serie con residuos recogidos en la costa",
  corto:"Orozco trabaja con restos arrastrados por el mar hasta la orilla. La obra propone una arqueología del presente: mirar los desechos como huellas del consumo ya depositadas en el paisaje.",largo:""},
 {titulo:"The Trash People",artista:"HA Schult",anio:"1996",nucleo:4,individual:false,
  tecnica:"Cientos de figuras humanas de tamaño natural hechas con basura compactada",
@@ -116,11 +116,11 @@ function showEnd(){
  $('endc').innerHTML="<h2>Conclusión curatorial</h2><p>"+ENDING.concl+"</p><h2>Créditos</h2><p>Curaduría: "+CONFIG.nombre+" "+CONFIG.apellido+" · "+CONFIG.materia+" · "+CONFIG.universidad+" · Profesor: "+CONFIG.profesor+" · "+CONFIG.fecha+"</p><h2>Bibliografía</h2><ul>"+ENDING.bib.map(b=>"<li>"+b+"</li>").join("")+"</ul><br><button onclick=\"$('end').style.display='none'\">Volver al museo</button><br><br>";
  $('end').style.display='flex';
 }
-$('enter').onclick=()=>{$('cover').style.display='none'};
+$('enter').onclick=()=>{$('cover').style.display='none';fly(3,-D/2,-Math.PI/2,0,1.8)};
 
 /* ============ ESCENA ============ */
-const D=14,W=16,H=5,NR=9;
-const ROOMS=["Prólogo","Núcleo 1","Núcleo 1 · obra en foco","Núcleo 2","Núcleo 2 · obra en foco","Núcleo 3","Núcleo 3 · obra en foco","Epílogo","Cierre"];
+const D=14,W=16,H=5,NR=10;
+const ROOMS=["Introducción","Prólogo","Núcleo 1","Núcleo 1 · obra en foco","Núcleo 2","Núcleo 2 · obra en foco","Núcleo 3","Núcleo 3 · obra en foco","Epílogo","Cierre"];
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x14130f);
 const cam=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,.1,200);cam.rotation.order='YXZ';
 const rend=new THREE.WebGLRenderer({antialias:true});rend.setPixelRatio(Math.min(devicePixelRatio,1.5));
@@ -129,7 +129,7 @@ scene.add(new THREE.HemisphereLight(0xffffff,0x777066,.55));
 const mix=(a,b,t)=>new THREE.Color(a).lerp(new THREE.Color(b),t);
 for(let i=0;i<NR;i++){
  const t=i/(NR-1),z0=-i*D,zc=z0-D/2;
- const foco=[2,4,6].includes(i),wc=foco?new THREE.Color(0x26231f):mix(0xf5f3ee,0x8a857c,t),fc=foco?new THREE.Color(0x121110):mix(0xe4e0d8,0x4b4741,t);
+ const foco=[3,5,7].includes(i),wc=foco?new THREE.Color(0x26231f):mix(0xf5f3ee,0x8a857c,t),fc=foco?new THREE.Color(0x121110):mix(0xe4e0d8,0x4b4741,t);
  const wm=new THREE.MeshLambertMaterial({color:wc});
  const fl=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshLambertMaterial({color:fc}));fl.rotation.x=-Math.PI/2;fl.position.set(0,0,zc);scene.add(fl);
  const ce=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshLambertMaterial({color:foco?0x0d0c0b:mix(0xffffff,0x6d6961,t)}));ce.rotation.x=Math.PI/2;ce.position.set(0,H,zc);scene.add(ce);
@@ -139,20 +139,20 @@ for(let i=0;i<NR;i++){
  if(i==NR-1){const m=new THREE.Mesh(new THREE.BoxGeometry(W,H,.3),wm);m.position.set(0,H/2,z0-D);scene.add(m)}
  if(foco){const l=new THREE.PointLight(0xffd9a0,.2,16);l.position.set(0,H-.6,zc);scene.add(l);const sp=new THREE.SpotLight(0xffe2b0,1.6,22,.5,.5,1);sp.position.set(-2,H-.2,zc);sp.target.position.set(W/2,2.5,zc);scene.add(sp,sp.target)}else{const l=new THREE.PointLight(mix(0xfff4e0,0xc9c2b4,t),.75,24);l.position.set(0,H-.6,zc);scene.add(l)}
  /* acumulación creciente */
- if(i>0){const n=i*7,m=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshLambertMaterial(),n),d=new THREE.Object3D(),c=new THREE.Color();
+ if(i>1){const n=(i-1)*7,m=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshLambertMaterial(),n),d=new THREE.Object3D(),c=new THREE.Color();
   for(let k=0;k<n;k++){const s=.15+Math.random()*.4,sd=Math.random()<.5?-1:1;d.position.set(sd*(4.6+Math.random()*2.9),s*.3,z0-1.2-Math.random()*(D-2.4));d.rotation.y=Math.random()*3;d.scale.set(s*(.6+Math.random()),s*(.5+Math.random()),s);d.updateMatrix();m.setMatrixAt(k,d.matrix);m.setColorAt(k,c.setHSL(.08+Math.random()*.08,.15,.25+Math.random()*.4))}
   scene.add(m)}
 }
 /* figuras del Epílogo */
 const fm=new THREE.MeshLambertMaterial({color:0x7a756b});
 for(let k=0;k<14;k++){const g=new THREE.Group(),b=new THREE.Mesh(new THREE.BoxGeometry(.5,1.1,.3),fm),h=new THREE.Mesh(new THREE.BoxGeometry(.28,.3,.28),fm);b.position.y=.8;h.position.y=1.5;g.add(b,h);
- g.position.set(-6.6+Math.random()*4.1,0,-7*D-1.5-Math.random()*(D-3));g.rotation.y=.6+Math.random()*.8;g.scale.setScalar(.9+Math.random()*.25);scene.add(g)}
+ g.position.set(-6.6+Math.random()*4.1,0,-8*D-1.5-Math.random()*(D-3));g.rotation.y=.6+Math.random()*.8;g.scale.setScalar(.9+Math.random()*.25);scene.add(g)}
 
 /* texturas y obras */
 function cv(w,h,f){const c=document.createElement('canvas');c.width=w;c.height=h;f(c.getContext('2d'));const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;return t}
 function wrap(g,t,x,y,mw,lh){let l='';t.split(' ').forEach(w=>{const s=l+w+' ';if(g.measureText(s).width>mw&&l){g.fillText(l,x,y);y+=lh;l=w+' '}else l=s});g.fillText(l,x,y);return y}
 const pics=[],FR=new THREE.MeshLambertMaterial({color:0x15130f}),groups={};
-OBRAS.forEach((o,k)=>{o.n=k+1;o.room=o.individual?{1:2,2:4,3:6}[o.nucleo]:[0,1,3,5,7][o.nucleo];(groups[o.room]=groups[o.room]||[]).push(o)});
+OBRAS.forEach((o,k)=>{o.n=k+1;o.room=o.individual?{1:3,2:5,3:7}[o.nucleo]:[1,2,4,6,8][o.nucleo];(groups[o.room]=groups[o.room]||[]).push(o)});
 Object.values(groups).forEach(list=>list.forEach((o,j)=>{
  const big=o.individual,w=big?5.2:2.6,h=big?3.6:1.9,side=big||list.length==1?1:(j%2?1:-1),zc=-o.room*D-D/2,y=big?2.5:2.3;
  const g=new THREE.Group();g.position.set(side*(W/2-.16),y,zc);g.rotation.y=side==1?-Math.PI/2:Math.PI/2;scene.add(g);
@@ -165,9 +165,23 @@ Object.values(groups).forEach(list=>list.forEach((o,j)=>{
  const n=new THREE.Vector3(-side,0,0);o.fly={x:g.position.x+n.x*(big?6.2:4.3),z:zc,yaw:-side*Math.PI/2};
 }));
 /* placa de cierre */
-{const g=new THREE.Group();g.position.set(W/2-.16,2.3,-8*D-D/2);g.rotation.y=-Math.PI/2;scene.add(g);
+{const g=new THREE.Group();g.position.set(W/2-.16,2.3,-9*D-D/2);g.rotation.y=-Math.PI/2;scene.add(g);
  const m=new THREE.Mesh(new THREE.PlaneGeometry(3,1.5),new THREE.MeshBasicMaterial({map:cv(512,256,c=>{c.fillStyle='#e9e4da';c.fillRect(0,0,512,256);c.fillStyle='#1b1a18';c.textAlign='center';c.font='bold 38px Georgia';c.fillText('CIERRE',256,90);c.font='26px Georgia';c.fillText('Conclusión curatorial,',256,150);c.fillText('créditos y bibliografía',256,186);c.font='italic 20px Georgia';c.fillText('(clic para leer)',256,230)})}));
  m.userData={cierre:1};g.add(m);pics.push(m)}
+
+/* cartel de introducción */
+const INTRO=[
+{t:"Pensemos en la basura como la sombra del consumo. Toda cosa que compramos proyecta una sombra, pero nuestra sociedad se ha vuelto muy buena escondiéndola: la basura se recoge de noche, se transporta lejos, se entierra o se exporta. Esa invisibilidad nos protege de una idea incómoda: que consumir sí tiene consecuencias."},
+{t:"De ahí sale nuestra pregunta guía: ¿cómo hace el arte visible aquello que el consumo necesita ocultar: el destino, los cuerpos y la duración de lo que desechamos?"},
+{t:"Para responderla, nuestro objetivo es construir un recorrido que muestre el ciclo, la geografía y la duración del residuo, y que invite al espectador a revisar su propia relación con el consumo. Lo organizamos en tres tensiones:"},
+{t:"1. Valor frente a desecho: lo que fue deseable pasa a ser basura sin que el objeto cambie.",l:1},
+{t:"2. Visible frente a invisible: quién y dónde sostiene ese ocultamiento.",l:1},
+{t:"3. Tiempo corto frente a tiempo largo: minutos de uso frente a siglos de permanencia.",l:1}];
+function lay(g,fs,dr){let y=190;INTRO.forEach(b=>{g.font=fs+'px Georgia';const ind=b.l?60:0;let l='';const out=t=>{if(dr)g.fillText(t,100+ind,y);y+=fs*1.32};b.t.split(' ').forEach(w=>{const s=l+w+' ';if(g.measureText(s).width>1850-ind&&l){out(l);l=w+' '}else l=s});out(l);y+=fs*.55});return y}
+{const g=new THREE.Group();g.position.set(W/2-.16,2.5,-D/2);g.rotation.y=-Math.PI/2;scene.add(g);
+ const fr=new THREE.Mesh(new THREE.BoxGeometry(8.3,4.8,.12),FR);fr.position.z=.06;g.add(fr);
+ const tx=cv(2048,1152,c=>{c.fillStyle='#efece6';c.fillRect(0,0,2048,1152);c.fillStyle='#1b1a18';c.textAlign='left';c.font='bold 46px Georgia';c.fillText('INTRODUCCIÓN',100,95);c.fillRect(100,115,300,4);let fs=40;while(fs>20&&lay(c,fs,false)>1090)fs-=2;lay(c,fs,true)});
+ const m=new THREE.Mesh(new THREE.PlaneGeometry(8,4.5),new THREE.MeshBasicMaterial({map:tx}));m.position.z=.125;g.add(m)}
 
 /* ============ NAVEGACIÓN ============ */
 const P={x:0,z:-1.5,yaw:0,pitch:0};let tw=null;
@@ -179,12 +193,13 @@ function addB(label,fn,room){const b=document.createElement('button');b.textCont
 function addT(t){const d=document.createElement('div');d.className='t';d.textContent=t;menu.appendChild(d)}
 addT('RECORRIDO');
 addB('Portada',()=>{$('cover').style.display='flex'},-1);
-addB('Prólogo',()=>{goRoom(0);showNuc(0)},0);
-[[1,1,2],[2,3,4],[3,5,6]].forEach(([n,sr,fr])=>{
+addB('Introducción',()=>{fly(3,-D/2,-Math.PI/2);$('panel').style.display='none'},0);
+addB('Prólogo',()=>{goRoom(1);showNuc(0)},1);
+[[1,2,3],[2,4,5],[3,6,7]].forEach(([n,sr,fr])=>{
  addB('Núcleo '+n,()=>{goRoom(sr);showNuc(n)},sr);
  const o=OBRAS.find(x=>x.individual&&x.nucleo==n);addB('★ '+o.artista,()=>goObra(o),fr)});
-addB('Epílogo',()=>{goRoom(7);showNuc(4)},7);
-addB('Cierre',()=>{goRoom(8);showEnd()},8);
+addB('Epílogo',()=>{goRoom(8);showNuc(4)},8);
+addB('Cierre',()=>{goRoom(9);showEnd()},9);
 const ld=document.createElement('button');ld.id='load';ld.textContent='Cargar imágenes';ld.onclick=()=>$('files').click();menu.appendChild(ld);
 $('files').onchange=e=>{let ok=0;[...e.target.files].forEach(f=>{const m=parseInt(f.name,10);const o=OBRAS[m-1];if(!o)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const t=new THREE.Texture(im);t.encoding=THREE.sRGBEncoding;t.needsUpdate=true;const p=o.pic,{w,h}=p.userData,r2=im.width/im.height,a=w/h;p.material.map=t;p.material.needsUpdate=true;if(r2>a)p.scale.set(1,a/r2,1);else p.scale.set(r2/a,1,1)};im.src=r.result};r.readAsDataURL(f);ok++});
  alert(ok+' imagen(es) asignada(s). Los archivos deben empezar con el número de la obra (01-arman.jpg, 02-pistoletto.jpg, …).');e.target.value=''};
@@ -219,7 +234,7 @@ function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,(now-last)/
  if(r!=curRoom){curRoom=r;$('room').textContent=ROOMS[r];btns.forEach(x=>x.b.classList.toggle('on',x.room==r))}
  rend.render(scene,cam)}
 requestAnimationFrame(loop);
-  /* Imágenes precargadas (solo funcionan en la versión web) */
+/* Imágenes precargadas (solo en la versión web, carpeta imagenes/01.jpg … 11.jpg) */
 function aplicar(o,im){const t=new THREE.Texture(im);t.encoding=THREE.sRGBEncoding;t.needsUpdate=true;const p=o.pic,{w,h}=p.userData,r2=im.width/im.height,a=w/h;p.material.map=t;p.material.needsUpdate=true;if(r2>a)p.scale.set(1,a/r2,1);else p.scale.set(r2/a,1,1)}
 if(location.protocol.startsWith('http')){OBRAS.forEach((o,k)=>{const im=new Image();im.onload=()=>aplicar(o,im);im.src='imagenes/'+String(k+1).padStart(2,'0')+'.jpg'})}
 </script></body></html>
